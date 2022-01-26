@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-6 text-white" style="background-color: darkslategrey; border-radius: 5px; border:darkturquoise solid 2px;">
+    <h3 style="border-bottom: 2px lightblue solid;">Settings!</h3>
+    <label>Hvad der skal i ovnen: <input type="text" name="textInput" [disabled]="microwaveStage != 'open'" [(ngModel)]="textInput" ></label>
+    <br>
+    <br>
+    <label>Hvordan det skal bestråles:</label>
+    <div class="radio" *ngFor="let program_ of programs">
+      <label>
+        <input [checked]="program == program_" [disabled]="microwaveStage != 'open'" type="radio" [(ngModel)]="program" name="programs" [value]="program_">
+        {{program_}}
+      </label>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="Start()" [disabled]="microwaveStage != 'open' || textInput == ''">Start</button>
+    <button style="margin-left: 10px;" class="btn btn-warning" (click)="Reset()" [disabled]="microwaveStage != 'done'">Reset</button>
+  </div>
+  <div class="col-6 text-center" style="min-width: 300px; min-height: 300px; background-size: 100%; display: flex; justify-content: center; align-items: center;" [style.background-image]="microwaveImageFile">
+      <label *ngIf="microwaveStage == 'done'" class="text-white" style="background-color: rgba(100, 100, 175, 0.75); border: rgba(100, 100, 175, 0.7) 1px solid; padding: 5px; border-radius: 3px;">
+        <span *ngIf="program == 'Morse'" >{{textInput | morseSmoke}}</span>
+        <span *ngIf="program == 'MD5'" >{{textInput | md5Smoke}}</span>
+      </label>
+  </div>
+</div>
